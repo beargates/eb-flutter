@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home/index.dart';
+import './view/top/index.dart';
 
 void main() => runApp(new App());
 
@@ -8,7 +8,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter_demo',
+      title: 'EB',
       theme: ThemeData(
         // 状态栏图标与字体颜色为白色
         brightness: Brightness.dark,
@@ -21,7 +21,7 @@ class App extends StatelessWidget {
         // 页面的背景色
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: Home(),
+      home: TopView(),
       routes: {
         // "/base_info": (_) => BaseInfo(),
       },
