@@ -70,6 +70,7 @@ class _HomeState extends State<Home> {
     Tab(child: Text('实惠')),
     Tab(child: Text('进口')),
   ];
+
   Widget tabBar() {
     return Container(
       color: Colors.white,
@@ -82,59 +83,44 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Widget tabBarView() {
-  //   return TabBarView(
-  //       children: tabs.map((index) {
-  //         return GridView.count(
-  //           mainAxisSpacing: 2,
-  //           crossAxisSpacing: 2,
-  //           children: _list,
-  //           crossAxisCount: 3,
-  //         );
-  //       }).toList());
-  // }
+  Widget tabBarView(BuildContext ctx) {
+    return TabBarView(
+        children: tabs.map((index) {
+      return GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 0.75,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          children: List.generate(20, (index) => GoodsItem()));
+    }).toList());
+  }
 
   Widget build(BuildContext ctx) {
     return DefaultTabController(
       length: tabs.length,
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: buildCarousel(ctx),
-          ),
-          SliverGrid.count(
-              crossAxisCount: titles.length ~/ 2, children: buildGridMenu(ctx)),
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: CustomSliverPersistentHeaderDelegate(
-              minHeight: 40,
-              maxHeight: 50,
-              child: tabBar(),
-            ),
-          ),
-          SliverGrid(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: screen(ctx).width / 2,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
-              childAspectRatio: 0.75,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Container(
-                    padding: EdgeInsets.fromLTRB(
-                      index % 2 == 0 ? 10 : 0,
-                      index < 2 ? 10 : 0,
-                      index % 2 == 1 ? 10 : 0,
-                      index > 20 - 2 - 1 ? 10 : 0,
-                    ),
-                    child: GoodsItem());
-              },
-              childCount: 20,
-            ),
-          ),
-        ],
-      ),
+      child: NestedScrollView(
+          headerSliverBuilder: (ctx, _) {
+            return [
+              SliverToBoxAdapter(
+                child: buildCarousel(ctx),
+              ),
+              SliverGrid.count(
+                  crossAxisCount: titles.length ~/ 2,
+                  children: buildGridMenu(ctx)),
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: CustomSliverPersistentHeaderDelegate(
+                  minHeight: 40,
+                  maxHeight: 50,
+                  child: tabBar(),
+                ),
+              ),
+            ];
+          },
+          body: Padding(
+            padding: const EdgeInsets.all(10),
+            child: tabBarView(ctx),
+          )),
     );
   }
 }
