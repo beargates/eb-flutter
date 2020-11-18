@@ -9,9 +9,9 @@ createPage(Widget page, Map navigationOptions, {bool withAppBar = true}) {
   return Scaffold(
     appBar: withAppBar
         ? AppBar(
-      title: title != null ? Text(title) : null,
-      actions: actions,
-    )
+            title: title != null ? Text(title) : null,
+            actions: actions,
+          )
         : null,
     body: page,
   );
@@ -23,9 +23,7 @@ push(String url) {
 
 pushWebview(String url) {
   var state = navigatorKey.currentState;
-  if (state != null) {
-    return state.push(new MaterialPageRoute(builder: (context) {
-      return WebView(url);
-    }));
-  }
+  return state?.push(new MaterialPageRoute(builder: (context) {
+    return WebView(url);
+  }));
 }

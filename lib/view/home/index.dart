@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
+import 'package:get_it/prefab/GoodsItem.dart';
+import '../utils/CustomSliverPersistentHeaderDelegate.dart';
 import '../utils/system.dart';
 import '../utils/router.dart';
 
@@ -19,9 +21,10 @@ var icons = [Icons.accessibility_new];
 var titles = ['超市', '笔电', '手机', '电器', '服饰', '水果', '蔬菜', '百货'];
 
 class _HomeState extends State<Home> {
-  toBaidu(){
+  toBaidu() {
     pushWebview('https://www.baidu.com');
   }
+
   Widget buildCarousel(BuildContext ctx) {
     return CarouselSlider(
       options: CarouselOptions(
@@ -68,6 +71,21 @@ class _HomeState extends State<Home> {
         ),
         SliverGrid.count(
             crossAxisCount: titles.length ~/ 2, children: buildGridMenu(ctx)),
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: CustomSliverPersistentHeaderDelegate(
+            minHeight: 50,
+            maxHeight: 100,
+            child: Container(
+              height: 100,
+              decoration: BoxDecoration(color: Colors.amberAccent),
+              child: Text('123'),
+            ),
+          ),
+        ),
+        SliverGrid.count(
+            crossAxisCount: 2,
+            children: List.generate(11, (index) => GoodsItem())),
       ],
     );
   }
