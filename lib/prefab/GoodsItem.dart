@@ -5,19 +5,26 @@ var url =
 
 class GoodsItem extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(mainAxisAlignment: MainAxisAlignment.center,children: [
-          Image.network(url)
-        ]),
-        Text('¥5999.00', style: TextStyle(color: Color(0xFFe4393c))),
-        Text(
-            'Apple iPhone 12 mini (A2400) 64GB 蓝色 手机 支持移动联通电信5G 【你好，5G！】A14仿生芯片，超视网膜XDR全面屏，超瓷晶面板！升维大提速，称心更称手！详情',
-            style: TextStyle(color: Color(0xFF666666)),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis)
-      ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+                // todo width自动撑开
+                children: [Image.network(url, width: 150)]),
+            Text('¥5999.00', style: TextStyle(color: Color(0xFFe4393c))),
+            Text(
+                'Apple iPhone 12 mini (A2400) 64GB 蓝色 手机 支持移动联通电信5G 【你好，5G！】A14仿生芯片，超视网膜XDR全面屏，超瓷晶面板！升维大提速，称心更称手！详情',
+                style: TextStyle(color: Color(0xFF666666)),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis)
+          ],
+        ),
+      ),
     );
   }
 }

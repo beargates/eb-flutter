@@ -20,7 +20,7 @@ class App extends StatelessWidget {
         // 去掉点击控件点击时的背景色
         highlightColor: Colors.transparent,
         // 页面的背景色
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Color(0xFFf2f3f4),
       ),
       home: TopView(),
       navigatorKey: navigatorKey,

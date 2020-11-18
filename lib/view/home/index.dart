@@ -83,9 +83,27 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        SliverGrid.count(
-            crossAxisCount: 2,
-            children: List.generate(11, (index) => GoodsItem())),
+        SliverGrid(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: screen(ctx).width / 2,
+            mainAxisSpacing: 10.0,
+            crossAxisSpacing: 10.0,
+            childAspectRatio: 0.75,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Container(
+                  padding: EdgeInsets.fromLTRB(
+                    index % 2 == 0 ? 10 : 0,
+                    index < 2 ? 10 : 0,
+                    index % 2 == 1 ? 10 : 0,
+                    index > 20 - 2 - 1 ? 10 : 0,
+                  ),
+                  child: GoodsItem());
+            },
+            childCount: 20,
+          ),
+        ),
       ],
     );
   }
