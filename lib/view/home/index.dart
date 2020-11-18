@@ -63,48 +63,78 @@ class _HomeState extends State<Home> {
         .toList();
   }
 
+  var tabs = const [
+    Tab(child: Text('精选')),
+    Tab(child: Text('新品')),
+    Tab(child: Text('直播')),
+    Tab(child: Text('实惠')),
+    Tab(child: Text('进口')),
+  ];
+  Widget tabBar() {
+    return Container(
+      color: Colors.white,
+      child: TabBar(
+          tabs: tabs,
+          isScrollable: true,
+          indicatorColor: Colors.red,
+          labelColor: Colors.black,
+          unselectedLabelColor: Colors.black54),
+    );
+  }
+
+  // Widget tabBarView() {
+  //   return TabBarView(
+  //       children: tabs.map((index) {
+  //         return GridView.count(
+  //           mainAxisSpacing: 2,
+  //           crossAxisSpacing: 2,
+  //           children: _list,
+  //           crossAxisCount: 3,
+  //         );
+  //       }).toList());
+  // }
+
   Widget build(BuildContext ctx) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: buildCarousel(ctx),
-        ),
-        SliverGrid.count(
-            crossAxisCount: titles.length ~/ 2, children: buildGridMenu(ctx)),
-        SliverPersistentHeader(
-          pinned: true,
-          delegate: CustomSliverPersistentHeaderDelegate(
-            minHeight: 50,
-            maxHeight: 100,
-            child: Container(
-              height: 100,
-              decoration: BoxDecoration(color: Colors.amberAccent),
-              child: Text('123'),
+    return DefaultTabController(
+      length: tabs.length,
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: buildCarousel(ctx),
+          ),
+          SliverGrid.count(
+              crossAxisCount: titles.length ~/ 2, children: buildGridMenu(ctx)),
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: CustomSliverPersistentHeaderDelegate(
+              minHeight: 40,
+              maxHeight: 50,
+              child: tabBar(),
             ),
           ),
-        ),
-        SliverGrid(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: screen(ctx).width / 2,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 10.0,
-            childAspectRatio: 0.75,
+          SliverGrid(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: screen(ctx).width / 2,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 0.75,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Container(
+                    padding: EdgeInsets.fromLTRB(
+                      index % 2 == 0 ? 10 : 0,
+                      index < 2 ? 10 : 0,
+                      index % 2 == 1 ? 10 : 0,
+                      index > 20 - 2 - 1 ? 10 : 0,
+                    ),
+                    child: GoodsItem());
+              },
+              childCount: 20,
+            ),
           ),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return Container(
-                  padding: EdgeInsets.fromLTRB(
-                    index % 2 == 0 ? 10 : 0,
-                    index < 2 ? 10 : 0,
-                    index % 2 == 1 ? 10 : 0,
-                    index > 20 - 2 - 1 ? 10 : 0,
-                  ),
-                  child: GoodsItem());
-            },
-            childCount: 20,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
