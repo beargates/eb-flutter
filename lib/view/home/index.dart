@@ -56,10 +56,13 @@ class _HomeState extends State<Home> {
 
   List<Widget> buildGridMenu(BuildContext ctx) {
     return titles
-        .map((title) => Column(children: [
-              IconButton(icon: Icon(icons[0]), onPressed: toBaidu),
-              Text(title)
-            ]))
+        .map((title) => Container(
+              color: Colors.white,
+              child: Column(children: [
+                IconButton(icon: Icon(icons[0]), onPressed: toBaidu),
+                Text(title)
+              ]),
+            ))
         .toList();
   }
 
@@ -118,7 +121,7 @@ class _HomeState extends State<Home> {
             ];
           },
           body: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: tabBarView(ctx),
           )),
     );
