@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './view/utils/router.dart';
 import './view/top/index.dart';
 
 void main() => runApp(new App());
@@ -22,6 +23,7 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
       ),
       home: TopView(),
+      navigatorKey: navigatorKey,
       routes: {
         // "/base_info": (_) => BaseInfo(),
       },

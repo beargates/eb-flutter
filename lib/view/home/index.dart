@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import '../utils/system.dart';
+import '../utils/router.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,6 +19,9 @@ var icons = [Icons.accessibility_new];
 var titles = ['超市', '笔电', '手机', '电器', '服饰', '水果', '蔬菜', '百货'];
 
 class _HomeState extends State<Home> {
+  toBaidu(){
+    pushWebview('https://www.baidu.com');
+  }
   Widget buildCarousel(BuildContext ctx) {
     return CarouselSlider(
       options: CarouselOptions(
@@ -47,31 +51,23 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildGridMenu(BuildContext ctx) {
-    return GridView.builder(
-        itemCount: titles.length,
-        //SliverGridDelegateWithFixedCrossAxisCount 构建一个横轴固定数量Widget
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // 横轴元素个数
-            mainAxisSpacing: 20.0, // 纵轴间距
-            crossAxisSpacing: 10.0, // 横轴间距
-            childAspectRatio: 1.0), // 子组件宽高长度比例
-        itemBuilder: (BuildContext context, int index) {
-          return Column(children: [
-            IconButton(icon: Icon(icons[0]), onPressed: null),
-            Text(titles[index])
-          ]);
-        });
+  List<Widget> buildGridMenu(BuildContext ctx) {
+    return titles
+        .map((title) => Column(children: [
+              IconButton(icon: Icon(icons[0]), onPressed: toBaidu),
+              Text(title)
+            ]))
+        .toList();
   }
 
   Widget build(BuildContext ctx) {
-    SliverGridDelegateWithFixedCrossAxisCount
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: buildCarousel(ctx),
         ),
-        SliverList(delegate: SliverChildListDelegate(buildGridMenu(ctx)))
+        SliverGrid.count(
+            crossAxisCount: titles.length ~/ 2, children: buildGridMenu(ctx)),
       ],
     );
   }
