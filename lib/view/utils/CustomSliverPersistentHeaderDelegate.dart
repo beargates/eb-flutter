@@ -13,22 +13,18 @@ class CustomSliverPersistentHeaderDelegate
   final double maxHeight;
   final Widget child;
 
-  @override
   double get minExtent => minHeight;
 
-  @override
   double get maxExtent => max(maxHeight, minHeight);
 
-  @override
   bool shouldRebuild(CustomSliverPersistentHeaderDelegate oldDelegate) {
     return maxHeight != oldDelegate.maxHeight ||
         minHeight != oldDelegate.minHeight ||
         child != oldDelegate.child;
   }
 
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset,
+      bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 }
