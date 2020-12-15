@@ -6,6 +6,7 @@ import 'package:get_it/prefab/GoodsItem.dart';
 import '../utils/CustomSliverPersistentHeaderDelegate.dart';
 import '../utils/system.dart';
 import '../utils/router.dart';
+import '../utils/style.dart' as CommonStyle;
 
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
@@ -33,10 +34,34 @@ class _HomeState extends State<Home> {
     pushWebview('https://www.baidu.com');
   }
 
+  buildTitle() => CommonStyle.Radius(
+        radius: 25,
+        child: Container(
+          height: 45,
+          child: TextField(
+            decoration: InputDecoration(
+              // icon: Icon(Icons.send),  // leading
+              prefixIcon: Icon(Icons.search_outlined),
+              suffixIcon: Icon(Icons.add_a_photo_outlined),
+              hintText: 'Macbook Pro', // placeholder
+              // helperText: 'Helper Text', // 输入框左下方的辅助说明文字
+              // counterText: '0 characters', // 输入框右下方的辅助说明文字
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+      );
+
+  buildActions() => [
+        Column(children: [Icon(Icons.add_a_photo_outlined), Text('扫一扫')]),
+      ];
+
+  static final CAROUSEL_HEIGHT = 180.toDouble();
+  static final CAROUSEL_EDGE = 10.toDouble();
+
   buildCarousel() => CarouselSlider(
         options: CarouselOptions(
-          height: 240.0,
-          // aspectRatio: 16/9,
+          height: CAROUSEL_HEIGHT,
           viewportFraction: 0.9999,
           // initialPage: 0,
           enableInfiniteScroll: true,
@@ -52,13 +77,39 @@ class _HomeState extends State<Home> {
           return Builder(
             builder: (BuildContext context) {
               return Container(
-                  width: screen(context).width,
-                  // margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Image.network(i, fit: BoxFit.contain));
+                margin: EdgeInsets.symmetric(vertical: CAROUSEL_EDGE),
+                child: CommonStyle.Radius(
+                  radius: 10,
+                  child: Image.network(i,
+                      width: screen(context).width - 2 * CAROUSEL_EDGE,
+                      height: CAROUSEL_HEIGHT - 2 * CAROUSEL_EDGE,
+                      fit: BoxFit.cover),
+                ),
+              );
             },
           );
         }).toList(),
       );
+
+  buildCarouselWithBg() => Stack(children: [
+        Transform.translate(
+          offset: Offset(-100, -80),
+          child: Transform.scale(
+            alignment: AlignmentDirectional.bottomCenter,
+            scale: 10,
+            child: ClipOval(
+              child: SizedBox(
+                width: 200,
+                height: 160,
+                child: Container(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+          ),
+        ),
+        buildCarousel(),
+      ]);
 
   List<Widget> buildGridMenu() {
     return titles.map((title) {
@@ -70,13 +121,8 @@ class _HomeState extends State<Home> {
     }).toList();
   }
 
-  var tabs = const [
-    Tab(child: Text('精选')),
-    Tab(child: Text('新品')),
-    Tab(child: Text('直播')),
-    Tab(child: Text('实惠')),
-    Tab(child: Text('进口')),
-  ];
+  static final List tabTitles = ['精选', '新品', '直播', '实惠', '进口'];
+  var tabs = tabTitles.map((_) => Tab(child: Text(_))).toList();
 
   buildTabBar() => TabBar(
       tabs: tabs,
@@ -85,26 +131,39 @@ class _HomeState extends State<Home> {
       labelColor: Colors.black,
       unselectedLabelColor: Colors.black54);
 
-  buildTabBarView() => TabBarView(
-          children: tabs.map((index) {
-        return GridView.count(
-            crossAxisCount: 2,
-            childAspectRatio: 0.75,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            children: List.generate(20, (index) => GoodsItem()));
-      }).toList());
+  buildTabBarView() => Padding(
+        padding: EdgeInsets.only(top: 10),
+        child: TabBarView(
+            children: tabs.map((index) {
+          return GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 0.82,
+              padding: EdgeInsets.zero, // 去掉多余的padding（GridView在刘海屏上会有多余的padding）
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              children: List.generate(20, (index) => GoodsItem()));
+        }).toList()),
+      );
 
   Widget build(BuildContext ctx) {
-    return DefaultTabController(
-      length: tabs.length,
-      child: RefreshIndicator(
-        child: SafeArea(
+    return Scaffold(
+      body: DefaultTabController(
+        length: tabs.length,
+        child: RefreshIndicator(
           child: NestedScrollView(
               physics: AlwaysScrollableScrollPhysics(),
               headerSliverBuilder: (ctx, _) => [
+                    SliverAppBar(
+                      backgroundColor: Colors.red,
+                      title: buildTitle(),
+                      centerTitle: false,
+                      automaticallyImplyLeading: false,
+                      actions: buildActions(),
+                      pinned: true,
+                      elevation: 0,
+                    ),
                     SliverToBoxAdapter(
-                      child: buildCarousel(),
+                      child: buildCarouselWithBg(),
                     ),
                     SliverGrid.count(
                         childAspectRatio: 1.3,
@@ -113,7 +172,7 @@ class _HomeState extends State<Home> {
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: CustomSliverPersistentHeaderDelegate(
-                        minHeight: 40,
+                        minHeight: 50,
                         maxHeight: 50,
                         child: buildTabBar(),
                       ),
@@ -123,16 +182,16 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: buildTabBarView(),
               )),
-        ),
-        notificationPredicate: (_) {
-          // 返回true即可
-          return true;
-        },
-        onRefresh: () {
-          return Future.delayed(Duration(seconds: 2), () {
+          notificationPredicate: (_) {
+            // 返回true即可
             return true;
-          });
-        },
+          },
+          onRefresh: () {
+            return Future.delayed(Duration(seconds: 2), () {
+              return true;
+            });
+          },
+        ),
       ),
     );
   }

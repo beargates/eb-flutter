@@ -25,6 +25,9 @@ class CustomSliverPersistentHeaderDelegate
 
   Widget build(BuildContext context, double shrinkOffset,
       bool overlapsContent) {
+    if(overlapsContent){
+      return SizedBox.expand(child: Container(color: Colors.white, child: child));
+    }
     return SizedBox.expand(child: child);
   }
 }
