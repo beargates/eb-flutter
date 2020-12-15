@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
                 width: 200,
                 height: 160,
                 child: Container(
-                  color: Colors.red,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),
@@ -154,7 +154,6 @@ class _HomeState extends State<Home> {
               physics: AlwaysScrollableScrollPhysics(),
               headerSliverBuilder: (ctx, _) => [
                     SliverAppBar(
-                      backgroundColor: Colors.red,
                       title: buildTitle(),
                       centerTitle: false,
                       automaticallyImplyLeading: false,
