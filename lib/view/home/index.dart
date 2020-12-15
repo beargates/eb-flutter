@@ -7,6 +7,7 @@ import '../utils/CustomSliverPersistentHeaderDelegate.dart';
 import '../utils/system.dart';
 import '../utils/router.dart';
 import '../utils/style.dart' as CommonStyle;
+import '../../component/SearchBox.dart';
 
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
@@ -34,23 +35,7 @@ class _HomeState extends State<Home> {
     pushWebview('https://www.baidu.com');
   }
 
-  buildTitle() => CommonStyle.Radius(
-        radius: 25,
-        child: Container(
-          height: 45,
-          child: TextField(
-            decoration: InputDecoration(
-              // icon: Icon(Icons.send),  // leading
-              prefixIcon: Icon(Icons.search_outlined),
-              suffixIcon: Icon(Icons.add_a_photo_outlined),
-              hintText: 'Macbook Pro', // placeholder
-              // helperText: 'Helper Text', // 输入框左下方的辅助说明文字
-              // counterText: '0 characters', // 输入框右下方的辅助说明文字
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-      );
+  buildTitle() => SearchBox('Macbook Pro');
 
   buildActions() => [
         Column(children: [Icon(Icons.add_a_photo_outlined), Text('扫一扫')]),
@@ -138,7 +123,8 @@ class _HomeState extends State<Home> {
           return GridView.count(
               crossAxisCount: 2,
               childAspectRatio: 0.82,
-              padding: EdgeInsets.zero, // 去掉多余的padding（GridView在刘海屏上会有多余的padding）
+              padding: EdgeInsets.zero,
+              // 去掉多余的padding（GridView在刘海屏上会有多余的padding）
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
               children: List.generate(20, (index) => GoodsItem()));

@@ -11,7 +11,7 @@ class TopView extends StatefulWidget {
 }
 
 class _State extends State<TopView> {
-  int selected = 0;
+  int selected = 1;
   var navBarTitles = ['首页', '分类', '购物车', '我'];
   var navBarIcons = [
     Icons.home_filled,
