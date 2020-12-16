@@ -7,8 +7,9 @@ class Feed extends StatefulWidget {
 }
 
 class _State extends State<Feed> {
-  static final List tabTitles = ['推荐', '超市', '男装', '奢侈品', '女装'];
-  var tabs = tabTitles.map((_) => Tab(child: Text(_))).toList();
+  static final List tabTitles =
+      '推荐 超市 男装 奢侈品 女装 鞋 内衣配饰 箱包 美妆护肤 个护清洁 钟表珠宝 手机 数码 电脑办公'.split(' ');
+  var tabs = tabTitles.map((_) => Text(_)).toList();
 
   buildTabBar() => VerticalTabBar(
         tabs: tabs,
@@ -27,9 +28,31 @@ class _State extends State<Feed> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.photo_camera_outlined),
+        leading: FlatButton(
+          child: Icon(
+            Icons.photo_camera_outlined,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            print(0);
+          },
+        ),
         title: SearchBox('Macbook Pro'),
-        actions: [Icon(Icons.message_rounded)],
+        centerTitle: false,
+        actions: [
+          SizedBox(
+            width: 50,
+            child: FlatButton(
+              child: Icon(
+                Icons.message_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                print(1);
+              },
+            ),
+          ),
+        ],
       ),
       body: DefaultTabController(length: tabs.length, child: buildTabBar()),
     );

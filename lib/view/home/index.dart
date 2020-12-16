@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
   }
 
   static final List tabTitles = ['精选', '新品', '直播', '实惠', '进口'];
-  var tabs = tabTitles.map((_) => Tab(child: Text(_))).toList();
+  var tabs = tabTitles.map((_) => Tab(text: _)).toList();
 
   buildTabBar() => TabBar(
       tabs: tabs,
