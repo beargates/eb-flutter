@@ -13,11 +13,10 @@ class GoodsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var rng = Random();
     var index = rng.nextInt(urls.length);
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
+    return Card(
+      elevation: 0,
+      child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
-        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,

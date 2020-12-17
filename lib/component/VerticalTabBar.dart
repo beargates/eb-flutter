@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/view/utils/style.dart';
 
 class VerticalTabBar extends StatefulWidget {
   final List tabs;
@@ -36,24 +37,15 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
   }
 
   buildTabBar() {
-    var contextStyle = DefaultTextStyle.of(context).style;
     return ListView(
       children: widget.tabs.map((_) {
         var i = widget.tabs.indexOf(_);
         var isCurrent = i == current;
         return FlatButton(
           onPressed: () => onChange(i),
-          child: DefaultTextStyle(
-            style: contextStyle.merge(
-              TextStyle(
-                fontSize: isCurrent
-                    ? contextStyle.fontSize * 1.2
-                    : contextStyle.fontSize,
-                fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-            child: _,
-          ),
+          child: EMText(context, _,
+              ratio: isCurrent ? 1.2 : 1,
+              fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal),
         );
       }).toList(),
     );
