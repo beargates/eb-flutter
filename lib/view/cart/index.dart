@@ -21,6 +21,7 @@ class _CartState extends State<Cart> {
       unselectedLabelColor: Colors.black54);
 
   Widget build(BuildContext context) {
+    var defaultTextStyle = DefaultTextStyle.of(context).style;
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
@@ -53,17 +54,67 @@ class _CartState extends State<Cart> {
                 ),
               )),
         ),
-        body: Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: ListView.separated(
-              itemBuilder: (ctx, index) {
-                return Padding(
-                  padding: EdgeInsets.only(right: 20),
-                  child: CartItem(thumbnail: url),
-                );
-              },
-              separatorBuilder: (ctx, index) => Divider(),
-              itemCount: 10),
+        body: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: ListView.separated(
+                  itemBuilder: (ctx, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: CartItem(thumbnail: url),
+                    );
+                  },
+                  separatorBuilder: (ctx, index) => Divider(),
+                  itemCount: 10),
+            ),
+            Positioned(
+              bottom: 0,
+              child: Container(
+                width: screen(context).width,
+                color: Theme.of(context).scaffoldBackgroundColor,
+                padding: EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(children: [
+                      FlatButton.icon(
+                          onPressed: () {},
+                          icon: Checkbox(value: false),
+                          label: Text('全选')),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: '合计:¥',
+                                    style: defaultTextStyle
+                                        .merge(TextStyle(fontSize: 20))),
+                                TextSpan(
+                                    text: '2,399',
+                                    style: defaultTextStyle
+                                        .merge(TextStyle(fontSize: 20))),
+                                TextSpan(text: '.00', style: defaultTextStyle),
+                              ],
+                            ),
+                          ),
+                          Text('优惠减:¥300.00'),
+                        ],
+                      ),
+                    ]),
+                    Container(
+                        color: Theme.of(context).primaryColor,
+                        child: FlatButton(
+                            onPressed: null,
+                            child: Text('去结算(1)',
+                                style: TextStyle(color: Colors.white))))
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
