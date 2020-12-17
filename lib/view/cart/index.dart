@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/prefab/CartItem.dart';
 import 'package:get_it/view/utils/system.dart';
+
+var url =
+    'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3501216559,2547952336&fm=11&gp=0.jpg';
 
 class Cart extends StatefulWidget {
   _CartState createState() => _CartState();
@@ -49,7 +53,18 @@ class _CartState extends State<Cart> {
                 ),
               )),
         ),
-        body: Container(),
+        body: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: ListView.separated(
+              itemBuilder: (ctx, index) {
+                return Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: CartItem(thumbnail: url),
+                );
+              },
+              separatorBuilder: (ctx, index) => Divider(),
+              itemCount: 10),
+        ),
       ),
     );
   }
