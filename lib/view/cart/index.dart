@@ -57,12 +57,18 @@ class _CartState extends State<Cart> {
         body: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 2),
               child: ListView.separated(
                   itemBuilder: (ctx, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 20),
-                      child: CartItem(thumbnail: url),
+                    return Row(
+                      children: [
+                        Checkbox(value: false),
+                        Expanded(
+                            flex: 1,
+                            child: Padding(
+                                padding: EdgeInsets.only(right: 20),
+                                child: CartItem(thumbnail: url)))
+                      ],
                     );
                   },
                   separatorBuilder: (ctx, index) => Divider(),
@@ -78,10 +84,15 @@ class _CartState extends State<Cart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(children: [
-                      FlatButton.icon(
-                          onPressed: () {},
-                          icon: Checkbox(value: false),
-                          label: Text('全选')),
+                      SizedBox(
+                        width: 80,
+                        child: IconButton(
+                            icon: Row(children: [
+                              SizedBox(width: 34, child: Checkbox(value: false)),
+                              Text('全选'),
+                            ]),
+                            onPressed: null),
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
