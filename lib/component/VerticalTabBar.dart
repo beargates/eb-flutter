@@ -6,9 +6,11 @@ class VerticalTabBar extends StatefulWidget {
   final defaultIndex;
   final List<Widget> tabBarView;
   final void Function(int) onChange;
+  final VerticalTabController controller;
 
   VerticalTabBar({
     this.tabs,
+    this.controller,
     this.onChange,
     this.defaultIndex = 0,
     @required this.tabBarView,
@@ -27,11 +29,21 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
     super.initState();
 
     current = widget.defaultIndex;
+    widget.controller.addListener(onChange);
   }
 
-  onChange(_) {
-    if (current != _) {
-      current = _;
+  dispose() {
+    super.dispose();
+    widget.controller.removeListener(onChange);
+  }
+
+  onChange() {
+    _changeTo(widget.controller.index);
+  }
+
+  _changeTo(int i) {
+    if (current != i) {
+      current = i;
       setState(() {});
     }
   }
@@ -42,7 +54,7 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
         var i = widget.tabs.indexOf(_);
         var isCurrent = i == current;
         return FlatButton(
-          onPressed: () => onChange(i),
+          onPressed: () => _changeTo(i),
           child: EMText(context, _,
               ratio: isCurrent ? 1.2 : 1,
               fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal),
@@ -61,5 +73,23 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
         ]),
       )
     ]);
+  }
+}
+
+class VerticalTabController extends ChangeNotifier {
+  get index => _index;
+
+  set index(i) => _changeTo(index);
+  int _index;
+
+  VerticalTabController({int initialPage = 0}) : _index = initialPage;
+
+  _changeTo(int index) {
+    _index = index;
+    notifyListeners();
+  }
+
+  turnTo(int index) {
+    _changeTo(index);
   }
 }

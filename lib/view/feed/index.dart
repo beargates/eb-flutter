@@ -14,8 +14,15 @@ class _State extends State<Feed> {
   static final List tabTitles =
       '推荐 超市 男装 奢侈品 女装 鞋 内衣配饰 箱包 美妆护肤 个护清洁 钟表珠宝 手机 数码 电脑办公'.split(' ');
   var tabs = tabTitles.map((_) => Text(_)).toList();
+  VerticalTabController _controller = VerticalTabController();
+
+  dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   buildTabBar() => VerticalTabBar(
+        controller: _controller,
         tabs: tabs,
         tabBarView: buildTabBarView(),
         labelColor: Colors.black,
