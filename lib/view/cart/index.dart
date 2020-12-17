@@ -54,75 +54,75 @@ class _CartState extends State<Cart> {
                 ),
               )),
         ),
-        body: Stack(
+        body: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 2),
-              child: ListView.separated(
-                  itemBuilder: (ctx, index) {
-                    return Row(
-                      children: [
-                        Checkbox(value: false),
-                        Expanded(
-                            flex: 1,
-                            child: Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                child: CartItem(thumbnail: url)))
-                      ],
-                    );
-                  },
-                  separatorBuilder: (ctx, index) => Divider(),
-                  itemCount: 10),
-            ),
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: screen(context).width,
-                color: Theme.of(context).scaffoldBackgroundColor,
-                padding: EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(children: [
-                      SizedBox(
-                        width: 80,
-                        child: IconButton(
-                            icon: Row(children: [
-                              SizedBox(width: 34, child: Checkbox(value: false)),
-                              Text('全选'),
-                            ]),
-                            onPressed: null),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: EdgeInsets.only(left: 2),
+                child: ListView.separated(
+                    itemBuilder: (ctx, index) {
+                      return Row(
                         children: [
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                    text: '合计:¥',
-                                    style: defaultTextStyle
-                                        .merge(TextStyle(fontSize: 20))),
-                                TextSpan(
-                                    text: '2,399',
-                                    style: defaultTextStyle
-                                        .merge(TextStyle(fontSize: 20))),
-                                TextSpan(text: '.00', style: defaultTextStyle),
-                              ],
-                            ),
-                          ),
-                          Text('优惠减:¥300.00'),
+                          Checkbox(value: false),
+                          Expanded(
+                              flex: 1,
+                              child: Padding(
+                                  padding: EdgeInsets.only(right: 20),
+                                  child: CartItem(thumbnail: url)))
                         ],
-                      ),
-                    ]),
-                    Container(
-                        color: Theme.of(context).primaryColor,
-                        child: FlatButton(
-                            onPressed: null,
-                            child: Text('去结算(1)',
-                                style: TextStyle(color: Colors.white))))
-                  ],
-                ),
+                      );
+                    },
+                    separatorBuilder: (ctx, index) => Divider(),
+                    itemCount: 10),
+              ),
+            ),
+            Container(
+              width: screen(context).width,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              padding: EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(children: [
+                    SizedBox(
+                      width: 80,
+                      child: IconButton(
+                          icon: Row(children: [
+                            SizedBox(width: 34, child: Checkbox(value: false)),
+                            Text('全选'),
+                          ]),
+                          onPressed: null),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: '合计:¥',
+                                  style: defaultTextStyle
+                                      .merge(TextStyle(fontSize: 20))),
+                              TextSpan(
+                                  text: '2,399',
+                                  style: defaultTextStyle
+                                      .merge(TextStyle(fontSize: 20))),
+                              TextSpan(text: '.00', style: defaultTextStyle),
+                            ],
+                          ),
+                        ),
+                        Text('优惠减:¥300.00'),
+                      ],
+                    ),
+                  ]),
+                  Container(
+                      color: Theme.of(context).primaryColor,
+                      child: FlatButton(
+                          onPressed: null,
+                          child: Text('去结算(1)',
+                              style: TextStyle(color: Colors.white))))
+                ],
               ),
             ),
           ],
