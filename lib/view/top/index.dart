@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../home/index.dart';
 import '../feed/index.dart';
 import '../mine/index.dart';
-import '../order/index.dart';
+import '../cart/index.dart';
 
 class TopView extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class TopView extends StatefulWidget {
 }
 
 class _State extends State<TopView> {
-  int selected = 1;
+  int selected = 2;
   var navBarTitles = ['首页', '分类', '购物车', '我'];
   var navBarIcons = [
     Icons.home_filled,
@@ -22,8 +22,8 @@ class _State extends State<TopView> {
   static final _home = Home();
   static final _feeds = Feed();
   static final _mine = Mine();
-  static final _order = Order();
-  static final List<Widget> _tabbarViews = [_home, _feeds, _order, _mine];
+  static final _cart = Cart();
+  static final List<Widget> _tabbarViews = [_home, _feeds, _cart, _mine];
 
   void _onItemTapped(int index) {
     selected = index;
