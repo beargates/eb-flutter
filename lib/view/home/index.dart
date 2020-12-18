@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
-import 'package:get_it/prefab/GoodsItem.dart';
+import 'package:get_it/prefab/GoodsList.dart';
 import '../utils/CustomSliverPersistentHeaderDelegate.dart';
 import '../utils/system.dart';
 import '../utils/router.dart';
@@ -120,14 +120,7 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.only(top: 10),
         child: TabBarView(
             children: tabs.map((index) {
-          return GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: 0.82,
-              padding: EdgeInsets.zero,
-              // 去掉多余的padding（GridView在刘海屏上会有多余的padding）
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              children: List.generate(20, (index) => GoodsItem()));
+          return GoodsList();
         }).toList()),
       );
 
