@@ -117,44 +117,44 @@ class _MineState extends State<Mine> {
     );
   }
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('我的'),
-      ),
-      body: NestedScrollView(
-        headerSliverBuilder: (ctx, _) => [
-          SliverToBoxAdapter(child: buildHeader()),
-          SliverToBoxAdapter(child: buildOrderArea()),
-          SliverToBoxAdapter(child: Card(
-            elevation: 0,
-            margin: EdgeInsets.all(10),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-              child: Row(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: VerticalIconButton(
-                        icon: '998',
-                        iconSize: 22,
-                        text: '积分',
-                        onPress: null,
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: VerticalIconButton(
-                        icon: '0',
-                        iconSize: 22,
-                        text: '优惠券',
-                        onPress: null,
-                      )),
-                ],
-              ),
+    return NestedScrollView(
+      headerSliverBuilder: (ctx, _) => [
+        SliverAppBar(
+          automaticallyImplyLeading: false,
+          title: Text('我的'),
+          pinned: true,
+        ),
+        SliverToBoxAdapter(child: buildHeader()),
+        SliverToBoxAdapter(child: buildOrderArea()),
+        SliverToBoxAdapter(child: Card(
+          elevation: 0,
+          margin: EdgeInsets.all(10),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: VerticalIconButton(
+                      icon: '998',
+                      iconSize: 22,
+                      text: '积分',
+                      onPress: null,
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: VerticalIconButton(
+                      icon: '0',
+                      iconSize: 22,
+                      text: '优惠券',
+                      onPress: null,
+                    )),
+              ],
             ),
-          )),
-        ],
-        body: GoodsList(),
-      ),
+          ),
+        )),
+      ],
+      body: GoodsList(),
     );
   }
 }
