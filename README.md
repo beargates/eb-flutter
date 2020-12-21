@@ -4,8 +4,7 @@ A new Flutter module.
 
 ## Getting Started
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.dev/).
+#安装Dart SDK
+## https://dart.dev/get-dart
 
-For instructions integrating Flutter modules to your existing applications,
-see the [add-to-app documentation](https://flutter.dev/docs/development/add-to-app).
+#替换bash_profile文件
